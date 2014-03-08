@@ -8,8 +8,6 @@
 	
 	$trads = include '../src/messages.php';	
 	$trads = $trads[$lang];	 
-	
-	include 'index-post.php';	
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,34 +22,37 @@
     <title>eShopOpinion</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
 
   </head>
 
   <body>
-<div id="dadesComanda">
-</div>
-
+  	<div class="container">
+		<div id="dadesComanda">
+		</div>
+	</div>
     <div class="container">
 
       <form id="rateForm" class="form-signin" role="form" action="#" method="post">
         <h2 class="form-signin-heading"><?=$trads['h2.title']?></h2>
-         <div class="form-group">
-        <label><?=$trads['label.valoracio']?></label><br />
         
+        <div class="form-group">
+        <label><?=$trads['label.valoracio']?></label><br />
         	<span data-value="0" class="rating icon-face-0"></span>
         	<span data-value="1" class="rating icon-face-1"></span>
         	<span data-value="2" class="rating icon-face-2"></span>
         	<span data-value="3" class="rating icon-face-3"></span>
         	<span data-value="4" class="rating icon-face-4"></span>
         	<span data-value="5" class="rating icon-face-5"></span>
+        	<input type="hidden" name="rating" id="rating-value"/>
         </div>
-        <input type="hidden" name="rating" id="rating-value"/>
-        <input type="hidden" name="hash" value ="<?=$hash?>"/>
+
+        
         <div class="form-group">
         <input type="email" class="form-control" placeholder="<?=$trads['email.placeholder']?>" required autofocus>
         </div>
+        
         <div class="form-group">
         <textarea  class="form-control" placeholder="<?=$trads['opinion.placeholder']?>" name="opinion" rows="4"></textarea>
         </div>
@@ -61,6 +62,7 @@
         	<div class="fb-like" data-href="http://eshopopinion.com" data-width="300" data-send="true"></div>
         </div>
         
+        <input type="hidden" name="hash" value ="<?=$hash?>"/>
         <button class="btn btn-lg btn-primary btn-block" type="submit"><?=$trads['submit.caption']?></button>
       </form>
       
@@ -74,11 +76,11 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/jquery/jquery.validate.js"></script>
-    <script src="../vendor/jquery/jquery.confirm.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../vendor/mustache/mustache.js"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/jquery/jquery.validate.js"></script>
+    <script src="vendor/jquery/jquery.confirm.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/mustache/mustache.js"></script>
     <script src="js/main.js"></script>
     <script type="text/javascript">
 		(function() {

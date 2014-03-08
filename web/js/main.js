@@ -25,27 +25,14 @@ $().ready(function()
             }
         }
     });
-	/*
-	$("#rateForm").confirm({
-	    text: "Are you sure you want to delete that comment?",
-	    title: "Confirmation required",
-	    confirm: function(button) {
-	        submit();
-	    },
-	    cancel: function(button) {
-	    	submit();
-	    },
-	    confirmButton: "Yes I am",
-	    //cancelButton: "No",
-	    post: true
-	});
-*/	
+	//TODO eliminar para DEMO
+	renderComanda({title: 'CMD 10133123012', description: 'Pedido realizado en amazon.com con un importe total de 1000$'})
 });
 
 function renderComanda(comanda)
 {
-	var template = "<h1>{{title}}</h1><p>{{description}}</p>";
-	var html = Mustache.to_html(template, person);
+	var template = "<h3>{{title}}</h3><p>{{description}}</p>";
+	var html = Mustache.to_html(template, comanda);
 	$('#dadesComanda').html(html);
 }
 

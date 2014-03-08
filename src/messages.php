@@ -2,7 +2,7 @@
 return array(
 	'es' => array (
 		'h2.title' 				=> 'Valoración de productos',
-		'label.valoracio' 		=> '¿Qué te ha parecido?',
+		'label.valoracio' 		=> '¿Qué le ha parecido?',
 		'email.placeholder' 	=> 'usuario@dominio.es',
 		'opinion.placeholder' 	=> 'Tu opinion es muy importante para nosotros!',
 		'submit.caption' 		=> 'Envia'
