@@ -9,12 +9,14 @@
 [class*=" icon-"] {
   font-family: 'icomoon';
   speak: none;
+  margin-left: 10px;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
   line-height: 2;
   font-size: 4em;
+  color: #C0C0C0;
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -78,6 +80,7 @@ cursor:pointer;
 
 [class*=" icon-"] {
   font-size: 3em;
+  margin-left: 5px;
   }
 }
 

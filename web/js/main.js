@@ -1,3 +1,4 @@
+var URL_API = 'http://api.eshopinion.com';
 
 $().ready(function()
 {
@@ -6,11 +7,13 @@ $().ready(function()
 	
 	$("#rateForm").validate({
         rules: {
+        	/*
             email:{
                 minlength: 3,
                 maxlength: 20,
                 required: true
             }
+            */
         },
         highlight: function (element) {
             $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
@@ -25,9 +28,13 @@ $().ready(function()
             }
         }
     });
+	
+	carregaDadesComanda();
 	//TODO eliminar para DEMO
 	renderComanda({title: 'CMD 10133123012', description: 'Pedido realizado en amazon.com con un importe total de 1000$'})
 });
+
+
 
 function renderComanda(comanda)
 {
@@ -46,8 +53,10 @@ function rate()
 	
 	console.log($('#rating-value').val());
 }
-var userLang = navigator.language || navigator.userLanguage;
-var lang_confirm = 'Les dades s\'han enviat correctament.';
+var userLang 		= navigator.language || navigator.userLanguage;
+var lang_confirm 	= 'Les dades s\'han enviat correctament.';
+var error_cmd		= 'No s\'ha pogut obtenir les dades de la comanda associada.';
+
 switch (userLang)
 {
 	case 'es':
@@ -60,7 +69,8 @@ switch (userLang)
 		    min: jQuery.validator.format("El campo debe ser superior a {0} caracteres.")
 		});
 	
-		lang_confirm = "Los datos se han enviado correctamente.";
+		lang_confirm 	= "Los datos se han enviado correctamente.";
+		error_cmd		= 'No se han podido obtener los datos de la comanda relacionada.';
 		
 	break;
 	case 'ca':
@@ -80,24 +90,57 @@ switch (userLang)
 
 function submit()
 {
-	console.log('hola');
-	
 	event.preventDefault();
-	
-	   $('#rateForm').hide();
-	     $('div.container').append("<p class=\"confirm\">"+lang_confirm+"</p>");
-	     /*
+
 	$.ajax({ 
-	   type: "GET",
-	   dataType: "jsonp",
-	   url: "http://localhost:8080/restws/json/product/get",
-	   success: function(data){        
-	     console.log(data);
+	   type		: 	"POST",
+	   dataType	: 	"json",
+	   url		: 	URL_API+"/opinions",
+	   data		: 
+	   {
+		   date			: $('#date').val(),
+		   order_id		: $('#hash').val(),
+		   description	: $('#opinion').val(),
+		   rate			: $('#rating-value').val()
+	   },
+	   success: function(data)
+	   {        
 	     $('#rateForm').hide();
 	     $('div.container').append("<p class=\"confirm\">"+lang_confirm+"</p>");
-	     
+	   },
+	   error: function(err)
+	   {
+		  var resp = err.parseJSON;
+
+		  if (resp['responseText'] == 'OK')
+		  {
+			     $('#rateForm').hide();
+			     $('div.container').append("<p class=\"confirm\">"+lang_confirm+"</p>");
+		  }
+
+		  $('#rateForm').hide();
+		  $('div.container').append("<p class=\"confirm\">"+lang_confirm+"</p>");
 	   }
-		
 	});
-	*/
+}
+
+function carregaDadesComanda()
+{
+	$.ajax({ 
+		   type: "POST",
+		   dataType: "json",
+		   url: URL_API+"/opinions",
+		   data: {
+			   order_id: $('#hash').val(),
+		   },
+		   success: function(data){        
+			   renderComanda(data.parseJSON);
+		   },
+		   error: function(err)
+		   {
+			   renderComanda({title:'Error', description: error_cmd});
+			   // $('#rateForm').hide();
+		   }
+			
+		});
 }

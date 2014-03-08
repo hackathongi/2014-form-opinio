@@ -8,6 +8,7 @@
 	
 	$trads = include '../src/messages.php';	
 	$trads = $trads[$lang];	 
+	header('Access-Control-Allow-Origin: eshopinion.com')
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,26 +36,28 @@
     <div class="container">
 
       <form id="rateForm" class="form-signin" role="form" action="#" method="post">
+        <!--
         <h2 class="form-signin-heading"><?=$trads['h2.title']?></h2>
-        
+        -->
         <div class="form-group">
         <label><?=$trads['label.valoracio']?></label><br />
-        	<span data-value="0" class="rating icon-face-0"></span>
-        	<span data-value="1" class="rating icon-face-1"></span>
-        	<span data-value="2" class="rating icon-face-2"></span>
-        	<span data-value="3" class="rating icon-face-3"></span>
-        	<span data-value="4" class="rating icon-face-4"></span>
-        	<span data-value="5" class="rating icon-face-5"></span>
+        	<span data-value="0" class="rating icon-face-0" title="<?=$trads['face-0']?>"></span>
+        	<span data-value="1" class="rating icon-face-1" title="<?=$trads['face-1']?>"></span>
+        	<span data-value="2" class="rating icon-face-2" title="<?=$trads['face-2']?>"></span>
+        	<span data-value="3" class="rating icon-face-3" title="<?=$trads['face-3']?>"></span>
+        	<span data-value="4" class="rating icon-face-4" title="<?=$trads['face-4']?>"></span>
+        	<span data-value="5" class="rating icon-face-5" title="<?=$trads['face-5']?>"></span>
         	<input type="hidden" name="rating" id="rating-value"/>
         </div>
 
-        
+        <!--
         <div class="form-group">
         <input type="email" class="form-control" placeholder="<?=$trads['email.placeholder']?>" required autofocus>
         </div>
+        -->
         
         <div class="form-group">
-        <textarea  class="form-control" placeholder="<?=$trads['opinion.placeholder']?>" name="opinion" rows="4"></textarea>
+        <textarea  class="form-control" id="opinion" placeholder="<?=$trads['opinion.placeholder']?>" name="opinion" rows="4"></textarea>
         </div>
         
         <div class="form-group xarxes">
@@ -62,7 +65,9 @@
         	<div class="fb-like" data-href="http://eshopopinion.com" data-width="300" data-send="true"></div>
         </div>
         
-        <input type="hidden" name="hash" value ="<?=$hash?>"/>
+        <input type="hidden" name="hash" id="hash" value ="<?=$hash?>"/>
+        <input type="hidden" name="date" id="date" value ="<?=date("Y-d-m G-i-s",time())?>"/>
+        
         <button class="btn btn-lg btn-primary btn-block" type="submit"><?=$trads['submit.caption']?></button>
       </form>
       
