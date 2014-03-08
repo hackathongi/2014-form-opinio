@@ -1,8 +1,8 @@
+
 $().ready(function()
 {
 	$(".rating").bind('click', rate);
 	$( "#rateForm" ).submit(submit);
-	$(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
 	
 	$("#rateForm").validate({
         rules: {
@@ -17,9 +17,29 @@ $().ready(function()
         },
         unhighlight: function (element) {
             $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+        },
+        messages: {
+            email: {
+              required: "Camp obligatori",
+              email: "El correu ha de ser de la forma usuari@domini.cat"
+            }
         }
     });
-	
+	/*
+	$("#rateForm").confirm({
+	    text: "Are you sure you want to delete that comment?",
+	    title: "Confirmation required",
+	    confirm: function(button) {
+	        submit();
+	    },
+	    cancel: function(button) {
+	    	submit();
+	    },
+	    confirmButton: "Yes I am",
+	    //cancelButton: "No",
+	    post: true
+	});
+*/	
 });
 
 function renderComanda(comanda)
@@ -31,7 +51,6 @@ function renderComanda(comanda)
 
 function rate()
 {
-	
 	$('#rating-value').val( $(this).attr('data-value'));
 	
 	//Marquem la seleccionada:
@@ -40,10 +59,58 @@ function rate()
 	
 	console.log($('#rating-value').val());
 }
-
+var userLang = navigator.language || navigator.userLanguage;
+var lang_confirm = 'Les dades s\'han enviat correctament.';
+switch (userLang)
+{
+	case 'es':
+		jQuery.extend(jQuery.validator.messages, {
+		    required: "Campo obligatorio.",
+		    email: "Formato de correo incorrecto",
+		    maxlength: jQuery.validator.format("Please enter no more than {0} characters."),
+		    minlength: jQuery.validator.format("Please enter at least {0} characters."),
+		    max: jQuery.validator.format("El campo debe ser inferior a {0} caracteres."),
+		    min: jQuery.validator.format("El campo debe ser superior a {0} caracteres.")
+		});
+	
+		lang_confirm = "Los datos se han enviado correctamente.";
+		
+	break;
+	case 'ca':
+		jQuery.extend(jQuery.validator.messages, {
+		    required: "Camp obligatori.",
+		    email: "Correu incorrecte. Exemple: usuari@domini.cat",
+		    maxlength: jQuery.validator.format("Please enter no more than {0} characters."),
+		    minlength: jQuery.validator.format("Please enter at least {0} characters."),
+		    max: jQuery.validator.format("Please enter a value less than or equal to {0}."),
+		    min: jQuery.validator.format("Please enter a value greater than or equal to {0}.")
+		});
+		
+		lang_confirm = "Les dades s'han enviat correctament.";
+	default:
+		break;
+}
 
 function submit()
 {
+	console.log('hola');
+	
 	event.preventDefault();
 	
+	   $('#rateForm').hide();
+	     $('div.container').append("<p class=\"confirm\">"+lang_confirm+"</p>");
+	     /*
+	$.ajax({ 
+	   type: "GET",
+	   dataType: "jsonp",
+	   url: "http://localhost:8080/restws/json/product/get",
+	   success: function(data){        
+	     console.log(data);
+	     $('#rateForm').hide();
+	     $('div.container').append("<p class=\"confirm\">"+lang_confirm+"</p>");
+	     
+	   }
+		
+	});
+	*/
 }
